@@ -9,7 +9,7 @@ const Middleview = () => {
 
   const [op, setOp] = useState({
     num: 0,
-    hold: "no",
+    hold: "none",
     color: "primary",
   });
 
@@ -41,12 +41,12 @@ const Middleview = () => {
   const changeHold = (op) => {
     console.log(op);
     let updatedOp = {};
-    if (op.hold === "no") {
-      updatedOp = { ...op, hold: "p1", color: "secondary" };
-    } else if (op.hold === "p1") {
-      updatedOp = { ...op, hold: "p2", color: "error" };
-    } else if (op.hold === "p2") {
-      updatedOp = { ...op, hold: "no", color: "primary" };
+    if (op.hold === "none") {
+      updatedOp = { ...op, hold: "player 1", color: "secondary" };
+    } else if (op.hold === "player 1") {
+      updatedOp = { ...op, hold: "player 2", color: "error" };
+    } else if (op.hold === "player 2") {
+      updatedOp = { ...op, hold: "none", color: "primary" };
     }
 
     const updatedOpList = opList.map((op) => {
@@ -123,8 +123,8 @@ const Middleview = () => {
                   color={op.color}
                   onClick={() => changeHold(op)}
                 >
-                  {" "}
-                  Point {op.num}
+                  Point {op.num} <br></br>
+                  Holding: {op.hold}
                 </Button>
               </Grid>
             ))}
