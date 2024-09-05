@@ -4,38 +4,22 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid2";
 import { useState } from "react";
 import { Button } from "@mui/material";
-const Middleview = () => {
-  const [opCount, setOpCount] = useState(0);
-
-  const [op, setOp] = useState({
-    num: 0,
-    hold: "none",
-    color: "primary",
-  });
-
-  const [opList, setOpList] = useState([]);
-
-  const OpTheme = createTheme({
-    backgroundColor: "#fff",
-    textAlign: "center",
-  });
-
-  const increaseOp = () => {
-    setOpCount(opCount + 1);
-  };
-
-  const decreaseOp = () => {
-    setOpCount(opCount - 1);
-  };
+const Middleview = ({ opList, setOpList, players }) => {
+  //const [opList, setOpList] = useState([]);
 
   const increaseOp2 = () => {
-    setOp({ ...op, num: opList.length + 1 });
-    setOpList([...opList, op]);
+    const newOp = {
+      num: opList.length + 1,
+      hold: "none",
+      color: "primary",
+    };
+    setOpList([...opList, newOp]);
     console.log(opList);
   };
 
   const decreaseOp2 = () => {
-    setOpCount(opCount - 1);
+    console.log(opList.length);
+    setOpList(opList.filter((o) => o.num !== opList.length));
   };
 
   const changeHold = (op) => {
@@ -74,43 +58,11 @@ const Middleview = () => {
     }),
   })); */
 
-  const OpList = () => {
-    const elementList = [];
-
-    for (let i = 0; i < opCount; i++) {
-      elementList.push(
-        <Grid key={i} size={4}>
-          <Button
-            variant="contained"
-            size="large"
-            color="secondary"
-            onClick={() => console.log("test")}
-          >
-            {" "}
-            Point {i + 1}
-          </Button>
-        </Grid>
-      );
-    }
-    return elementList;
-  };
-
   return (
     <div>
       <div>
-        <button onClick={() => increaseOp()}>add OP</button>
-        <button onClick={() => decreaseOp()}>remove OP</button>
-      </div>
-      <div>
         <button onClick={() => increaseOp2()}>add OP2</button>
         <button onClick={() => decreaseOp2()}>remove OP2</button>
-      </div>
-      <div>
-        <Box sx={{ flexGrow: 1 }}>
-          <Grid container spacing={2}>
-            <OpList />
-          </Grid>
-        </Box>
       </div>
       <div>
         <Box sx={{ flexGrow: 1 }}>
