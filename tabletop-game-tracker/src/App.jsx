@@ -1,10 +1,15 @@
 import { useState } from "react";
 import PlayerView from "./components/playerView";
 import Middleview from "./components/Middleview";
+import NavigateBar from "./components/NavigateBar";
+import BattleView from "./components/BattleView";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import HomePage from "./components/HomePage";
 
 function App() {
   const [opList, setOpList] = useState([]);
   const [players, setpPlayers] = useState([]);
+  const [currentPlayer, setCurrentPlayer] = useState({});
 
   const addPlayer = () => {
     const newPlayer = {
@@ -16,20 +21,22 @@ function App() {
 
   return (
     <>
-      <div>
-        <h1>Test</h1>
-      </div>
-      <div>
-        <button onClick={() => addPlayer()}>Add player</button>
-      </div>
-      <div>
-        <Middleview opList={opList} setOpList={setOpList} players={players} />{" "}
-        {players.map((p) => (
-          <PlayerView key={p.id} opList={opList} player={p.name} />
-        ))}
-        <PlayerView opList={opList} player={"player 1"} />
-        <PlayerView opList={opList} player={"player 2"} />
-      </div>
+      <Router>
+        <div>
+          <NavigateBar
+            players={players}
+            currentPlayer={currentPlayer}
+            setCurrentPlayer={setCurrentPlayer}
+          />
+        </div>
+
+        <div>
+          <Routes>
+            <Route path="/battle" element={<BattleView />} />
+            <Route path="/" element={<HomePage />} />
+          </Routes>
+        </div>
+      </Router>
     </>
   );
 }
